@@ -1,6 +1,7 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // hook
 import { NavLink } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const { VITE_APP_HOST } = import.meta.env;
@@ -8,23 +9,9 @@ const { VITE_APP_HOST } = import.meta.env;
 // 註冊頁面
 const SignUp = () => {
   const navigate = useNavigate(); // 把 hook 取出來做使用
+  const { register, handleSubmit } = useForm(); // 使用 useForm hook
 
-  // 定義狀態
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    nickname: "",
-  });
-
-  function HandleChange(e) {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData, // 先把原本的資料展開
-      [name]: value,
-    });
-  }
-
-  async function signup() {
+  async function onSubmit(formData) {
     // post 路徑, 資料, headers
     // get 路徑, headers
     try {
@@ -44,7 +31,7 @@ const SignUp = () => {
           請先註冊
         </h1>
         <div className=" flex justify-center">
-          <form action="">
+          <form action="" onSubmit={handleSubmit(onSubmit)}>
             {/* {JSON.stringify(formData)} */}
             <div className="w-full md:w-[500px] border-2 rounded-2xl p-10 bg-brown-100">
               <input
@@ -52,7 +39,7 @@ const SignUp = () => {
                 type="email"
                 placeholder="Email"
                 name="email" // 這裡的 name 要對應到 formData 的 key
-                onChange={HandleChange}
+                {...register("email")} // 這裡的 name 要對應到 formData 的 key
               />
 
               <input
@@ -60,7 +47,7 @@ const SignUp = () => {
                 type="password"
                 placeholder="Password"
                 name="password"
-                onChange={HandleChange}
+                {...register("password")}
               />
 
               <input
@@ -68,16 +55,12 @@ const SignUp = () => {
                 type="text"
                 placeholder="nickname"
                 name="nickname"
-                onChange={HandleChange}
+                {...register("nickname")}
               />
 
               <button
                 className="mt-4 border p-2 rounded-lg bg-primary text-white w-full hover:bg-brown-dark hover:transition-all duration-300"
-                type="button"
-                onClick={(e) => {
-                  console.log(e);
-                  signup();
-                }}
+                type="submit"
               >
                 註冊
               </button>
