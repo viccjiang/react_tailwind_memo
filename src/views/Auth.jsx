@@ -3,10 +3,10 @@ import { Outlet } from "react-router-dom";
 const Auth = () => {
   return (
     <>
-      <h1>共用元件，共用區塊</h1>
-
-      {/* 巢狀元件的指定渲染位置 */}
-      <Outlet />
+      <div className="bg-[#F8F6F2] min-h-[calc(100vh-68px)] flex flex-col md:flex-col justify-center items-center">
+        {/* 巢狀元件的指定渲染位置 */}
+        <Outlet />
+      </div>
     </>
   );
 };

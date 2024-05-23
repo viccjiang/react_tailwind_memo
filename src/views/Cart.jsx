@@ -16,7 +16,7 @@ const Cart = ({ cart, deleteCartItem, updateCart }) => {
                 {cart.map((item) => {
                   return (
                     <li key={item.id} className="w-full p-3 ">
-                      <div className="p-4 rounded-lg border  border-2 flex justify-between hover:bg-brown-100">
+                      <div className="p-4 rounded-lg border-2 flex justify-between hover:bg-brown-100">
                         <div>
                           <h3 className="text-lg font-bold text-primary">
                             {item.name}

@@ -66,7 +66,7 @@ const Todo = () => {
         console.log("登入失敗啦", err);
         setTimeout(() => {
           navigate("/auth/login");
-        }, 3000);
+        }, 1000);
       });
 
     getTodos();

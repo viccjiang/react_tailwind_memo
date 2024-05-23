@@ -1,45 +1,42 @@
 import { Route, Routes, NavLink } from "react-router-dom";
 import Home from "./views/Home";
-import About from "./views/About";
 import Auth from "./views/Auth";
 import SignUp from "./views/SignUp";
 import Login from "./views/Login";
 import Todo from "./views/Todo";
 import NotFound from "./views/NotFound";
-import DrinkMenu from "./views/DrinkMenu";
+// import DrinkMenu from "./views/DrinkMenu";
 import DrinkShop from "./views/DrinkShop";
 
 function App() {
   // 設定 NavLink 的樣式
   const style = ({ isActive }) => {
     return {
-      color: isActive ? "red" : null, // 如果 isActive 為 true，就設定為紅色，也可以寫成 isActive && "red"
+      color: isActive ? "#4e4336" : null, // 如果 isActive 為 true，就設定為紅色，也可以寫成 isActive && "red"
+      fontWeight: isActive ? "bold" : null, // 如果 isActive 為 true，就設定為粗體
     };
   };
 
   return (
     <>
       <div className="container">
-        <nav className="py-5 gap-8 flex flex-col md:flex-row justify-center">
+        <nav className="text-lg py-5 gap-8 flex justify-center">
           {/* a 連結 */}
           <NavLink to="/" style={style}>
             首頁
-          </NavLink>{" "}
-          <NavLink to="/about" style={style}>
-            About
-          </NavLink>{" "}
-          <NavLink to="/auth/sign_up" style={style}>
+          </NavLink>
+          {/* <NavLink to="/auth/sign_up" style={style}>
             註冊
-          </NavLink>{" "}
+          </NavLink>
           <NavLink to="/auth/login" style={style}>
             登入
-          </NavLink>{" "}
+          </NavLink> */}
           <NavLink to="/todo" style={style}>
-            Todo
+            待辦清單
           </NavLink>
-          <NavLink to="/drink" style={style}>
+          {/* <NavLink to="/drink" style={style}>
             餐點管理工具
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/orderDrink" style={style}>
             今天喝什麼
           </NavLink>
@@ -49,7 +46,6 @@ function App() {
       <Routes>
         {/* 路由表 */}
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
 
         {/* 巢狀路由 */}
         {/* /auth 共用版型 */}
@@ -66,7 +62,7 @@ function App() {
         <Route path="/todo" element={<Todo />} />
 
         {/* 餐點管理工具 */}
-        <Route path="/drink" element={<DrinkMenu />} />
+        {/* <Route path="/drink" element={<DrinkMenu />} /> */}
 
         {/* 今天喝什麼 */}
         <Route path="/orderDrink" element={<DrinkShop />} />

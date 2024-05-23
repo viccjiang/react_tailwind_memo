@@ -1,4 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import axios from "axios";
+
+import { useNavigate } from "react-router-dom";
+
+const { VITE_APP_HOST } = import.meta.env;
+
 import Menu from "./Menu";
 import Cart from "./Cart";
 
@@ -69,6 +76,7 @@ const drinkMenu = [
 ];
 
 const OrderMenu = () => {
+  const navigate = useNavigate();
   const [menu] = useState(drinkMenu); // 原始 menu
   const [cart, setCart] = useState([]); // 購物車
 
@@ -114,6 +122,33 @@ const OrderMenu = () => {
     });
     setCart(tempCart);
   };
+
+  useEffect(() => {
+    // 從 login 頁存到 cookie 的 token
+    // 抵達 todo 頁時，取得 Cookie 的 token
+    const cookieValue = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("token="))
+      ?.split("=")[1];
+
+    // 後續發出請求不用再帶 headers Auth~~~ ，預設 axios 的表頭，帶上 token，就不需要每次發出請求再帶上 headers
+    axios.defaults.headers.common["Authorization"] = cookieValue;
+
+    // 驗證登入
+    axios
+      .get(`${VITE_APP_HOST}/users/checkout`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("登入失敗啦", err);
+        setTimeout(() => {
+          navigate("/auth/login");
+        }, 1000);
+      });
+
+    // getTodos();
+  }, []);
 
   return (
     <>
